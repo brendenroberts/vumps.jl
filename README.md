@@ -1,7 +1,7 @@
 # vumps.jl
-This is a Julia implementation of the ``vumps'' algorithm of Zauner-Stauber, Vanderstraeten, Fishman, Verstraete, and Haegeman (https://doi.org/10.1103/PhysRevB.97.045145), using Haegeman's TensorOperations (https://github.com/Jutho/TensorOperations.jl).
+This is a Julia implementation of the "vumps" algorithm of Zauner-Stauber, Vanderstraeten, Fishman, Verstraete, and Haegeman (https://doi.org/10.1103/PhysRevB.97.045145), using Haegeman's TensorOperations (https://github.com/Jutho/TensorOperations.jl).
 The design is modular, with the central loop accepting a specification of the Hamiltonian via MPO tensor.
-Included is a driver code implmenting an ``adiabatic'' procedure of optimizing a state for a particular Hamiltonian and then using this as the initial state for a new Hamiltonian with parameters tuned slightly.
+Included is a driver code implmenting an "adiabatic" procedure of optimizing a state for a particular Hamiltonian and then using this as the initial state for a new Hamiltonian with parameters tuned slightly.
 
 The function `vumps` takes the following parameters:
 1. The MPO tensor, a four-dimensional `Array` of `Real` or `Complex` types
@@ -25,6 +25,6 @@ This allows for multiple arbitrary scans through the same phase diagram to live 
 1. `init.jld`: optional JLD file containing initial state for the scan
 The output of this driver will be a single data file as well as the vumps log for every value of parameters specified in `pfile` and a JLD file (which is essentially HDF5) containing each optimized wavefunction.
 
-Also included is similar code which takes only a single set of the `d` and `K` values that parameterize this particular Hamiltonian and a file containing a list of bond dimensions.
+Also included is similar code which takes only a single set of the `delta` and `K` values that parameterize this particular Hamiltonian and a file containing a list of bond dimensions.
 This code will optimize an MPS for each bond dimension, then use it to grow a state at a larger bond dimension.
 To see the command line arguments for this code, run it without any arguments. 
