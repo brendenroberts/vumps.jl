@@ -1,7 +1,7 @@
 # vumps.jl
 This is a Julia implementation of the "vumps" algorithm of Zauner-Stauber, Vanderstraeten, Fishman, Verstraete, and Haegeman (https://doi.org/10.1103/PhysRevB.97.045145), using Haegeman's TensorOperations (https://github.com/Jutho/TensorOperations.jl).
 The design is modular, with the central loop accepting a specification of the Hamiltonian via MPO tensor.
-Included is a driver code implmenting an "adiabatic" procedure of optimizing a state for a particular Hamiltonian and then using this as the initial state for a new Hamiltonian with parameters tuned slightly.
+Included is a driver code implementing an "adiabatic" procedure of optimizing a state for a particular Hamiltonian and then using this as the initial state for a new Hamiltonian with parameters tuned slightly.
 
 The function `vumps` takes the following parameters:
 1. The MPO tensor, a four-dimensional `Array` of `Real` or `Complex` types
@@ -17,12 +17,13 @@ This is convergence of the state, and the convergence of the energy will be stro
 The driver code is in `scan_Z3xZ3.jl`, which can be run from the command line and takes the following command-line arguments:
 1. `N_uc`: number of sites in the unit cell
 1. `chi`: MPS bond dimension
-1. `pfile`: an ASCII file containing parameters for the Hamiltonian tuning.
+1. `pfile`: a text file containing parameters for the Hamiltonian tuning.
 See file `params.txt` for an example of the format.
 1. `tag`: a string uniquely identifying this particular scan.
 This allows for multiple arbitrary scans through the same phase diagram to live in the same data file.
 1. `fname`: name of the overall data file.
 1. `init.jld`: optional JLD file containing initial state for the scan
+
 The output of this driver will be a single data file as well as the vumps log for every value of parameters specified in `pfile` and a JLD file (which is essentially HDF5) containing each optimized wavefunction.
 
 Also included is similar code which takes only a single set of the `delta` and `K` values that parameterize this particular Hamiltonian and a file containing a list of bond dimensions.
