@@ -229,7 +229,7 @@ function setFixedPt(i::Int64,
     EL::Float64 = real(dotu(F.YL[i],psi.ρR[i]));
     addDiag!(F.YL[i],-EL);
     Lop = LinearMap{T}((w,v)->ImTL(w,v,i,psi,seqL),m*m;ishermitian=false);
-    ~,info = bicgstabl!(F.HL[i],Lop,reshape(F.YL[i],m*m),2;tol=1e-9,log=true);
+    ~,info = bicgstabl!(F.HL[i],Lop,reshape(F.YL[i],m*m),2;reltol=1e-9,log=true);
     @assert (info.isconverged) "Linear solver not converged (L) after $(info.mvps) prods!";
     F.L[i][:,:,M] .= copy(reshape(F.HL[i],m,m));
  
@@ -242,7 +242,7 @@ function setFixedPt(i::Int64,
     ER::Float64 = real(dotu(psi.ρL[i],F.YR[i]));
     addDiag!(F.YR[i],-ER);
     Rop = LinearMap{T}((w,v)->ImTR(w,v,i,psi,seqR),m*m;ishermitian=false);
-    ~,info = bicgstabl!(F.HR[i],Rop,reshape(F.YR[i],m*m),2;tol=1e-9,log=true);
+    ~,info = bicgstabl!(F.HR[i],Rop,reshape(F.YR[i],m*m),2;reltol=1e-9,log=true);
     @assert (info.isconverged) "Linear solver not converged (R) after $(info.mvps) prods!";
     F.R[i][:,:,1] .= copy(reshape(F.HR[i],m,m));
     
